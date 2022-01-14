@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MainApp());
   // runApp(const TabClass());
 }
 
@@ -44,53 +44,75 @@ class TabClass extends StatelessWidget {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
 
 
-
-  const MyApp({Key? key}) : super(key: key);
+  const MainApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
-
+    final List<Tab> tabs = <Tab>[
+      Tab(text: 'Profile'),
+      Tab(text: 'Words'),
+      Tab(text: 'Tests'),
+      //Tab(text: 'Statistics'),
+    ];
 
     final wordPair = WordPair.random();
 
-
-
     return MaterialApp(
-      title: 'Learn Greek',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.lightBlue,
-        accentColor: Colors.white,
-        // Change the Text Color
-
+        primarySwatch: Colors.indigo
       ),
-      home: Scaffold(
+        home: DefaultTabController(
+        length: tabs.length,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(tabs: [
+              Tab(icon: Icon(Icons.directions_car)),
+              Tab(icon: Icon(Icons.directions_transit)),
+              Tab(icon: Icon(Icons.directions_bike)),
+             // Tab(icon: Icon(Icons.directions_bike)),
+            ],),
+            title: const Text('Greek Words'),
+          ),
+          body: const TabBarView(children: [
+            UserStat(),
+            Icon(Icons.directions_car),
+            RandomWords(),
+          ]),
 
-        appBar: AppBar(
-          title: const Text('Welcome to Greek Vocs'),
-        ), body: Center(
-        child: RandomWords(),
-      ),
-      )
+    )));
 
 
-      //const MyHomePage(title: 'Start Page for Greek Vocs'),
-    );
   }
 }
+
+class UserStat extends StatefulWidget {
+  const UserStat({Key? key}) : super(key: key);
+
+  @override
+  _UserStatState createState() => _UserStatState();
+}
+
+class _UserStatState extends State<UserStat> {
+
+  Widget _userProfile() {
+    return ListView.builder(itemBuilder: (context, i) {
+      return: null;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(
+      title: const Text('Hello'),
+    ), body: _userProfile());
+  }
+}
+
 
 class RandomWords extends StatefulWidget {
   const RandomWords({Key? key}) : super(key: key);
@@ -147,7 +169,6 @@ class _RandomWordsState extends State<RandomWords> {
 
 
 }
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
