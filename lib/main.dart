@@ -84,6 +84,13 @@ class _RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
 
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Startup Name Generation'),
+    ),
+    body: _buildSuggestions(),
+    );
+
       final wordPair = WordPair.random();
       return Text(wordPair.asPascalCase);
 
