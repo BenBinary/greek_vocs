@@ -3,19 +3,65 @@ import 'package:english_words/english_words.dart';
 
 void main() {
   runApp(const MyApp());
+  // runApp(const TabClass());
+}
+
+class TabClass extends StatelessWidget {
+
+  // const TabClass({Key? key}) : super(key: key);
+
+  final List<Tab> tabs = <Tab>[
+    Tab(text: 'Profile'),
+    Tab(text: 'Words'),
+    Tab(text: 'Tests'),
+    Tab(text: 'Statistics'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return DefaultTabController(
+        length: tabs.length,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+                tabs: tabs
+            ),
+          ),
+          body: TabBarView(
+            children: tabs.map((Tab tab) {
+
+              final String label = tab.text.toString();
+
+              return Center(
+                  child: Text('This is $label a tab',
+                    style: const TextStyle(fontSize: 20),
+                  ));
+
+            }).toList(),
+          ),
+        ));
+  }
 }
 
 class MyApp extends StatelessWidget {
+
+
+
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
+
+
     final wordPair = WordPair.random();
 
+
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Learn Greek',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +72,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightBlue,
+        accentColor: Colors.white,
+        // Change the Text Color
+
       ),
       home: Scaffold(
 
