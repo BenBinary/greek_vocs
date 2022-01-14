@@ -45,7 +45,7 @@ class _RandomWordsState extends State<RandomWords> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Different English Words'),
+        title: const Text('Words to Test'),
       ),
       body: _buildSuggestions(),
     );

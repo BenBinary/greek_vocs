@@ -44,7 +44,7 @@ class _UserStatState extends State<UserStat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
-      title: const Text('User Profile'),
+      title: const Text('User Profile and Statistics'),
 
     ),
     body:// _userProperties(),

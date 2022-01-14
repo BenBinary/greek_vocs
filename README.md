@@ -1,6 +1,17 @@
-# greek_vocs
+# The greek_vocs project
 
-A project to study greek vocs.
+A project to study greek vocs for certain issues like travelling, food and to study. 
+This is an open source project (OSS) so feel free to contribute. 
+We are looking forward to get in touch with people how are interested in learning greek or already can speak it.
+
+Abhay and Benedikt
+
+## Tech Stack
+This project is based on Flutter. We use on-site storage for tasks and learning progress.
+In future there can be a server side application be implemented.
+
+## Statistics 
+To track the learning progress a dedicated feedback shall be provided in terms how the performance of the user is.
 
 ## Getting Started
 
