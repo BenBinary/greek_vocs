@@ -20,9 +20,12 @@ class _UserStatState extends State<UserStat> {
 
   Widget _userStatistics() {
 
-    final lv = ListView.separated(
+    const List<String> entries = <String>['A', 'B', 'C'];
+    // const conIndex = entries.length
+
+    return ListView.separated(
       padding: const EdgeInsets.all(5),
-      itemCount: 3,
+      itemCount: entries.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
             height: 50,
@@ -34,7 +37,6 @@ class _UserStatState extends State<UserStat> {
 
     );
 
-    return lv;
 
   }
 
