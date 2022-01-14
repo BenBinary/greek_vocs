@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'RandomWords.dart';
 import 'UserStat.dart';
+import 'Lessons.dart';
 
 void main() {
   runApp(const MainApp());
@@ -73,16 +74,16 @@ class MainApp extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             bottom: const TabBar(tabs: [
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
-              Tab(icon: Icon(Icons.directions_bike)),
+              Tab(icon: Icon(Icons.account_circle_rounded)),
+              Tab(icon: Icon(Icons.article_sharp)),
+              Tab(icon: Icon(Icons.bookmark_added)),
              // Tab(icon: Icon(Icons.directions_bike)),
             ],),
             title: const Text('Greek Words'),
           ),
           body: const TabBarView(children: [
             UserStat(),
-            Icon(Icons.directions_car),
+            Lessons(),
             RandomWords(),
           ]),
 
