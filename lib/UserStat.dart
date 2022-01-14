@@ -20,22 +20,18 @@ class _UserStatState extends State<UserStat> {
 
   Widget _userStatistics() {
 
-    final lv = ListView(
+    final lv = ListView.separated(
       padding: const EdgeInsets.all(5),
-      children: [Container(
-        height: 50,
-        color: Colors.amber[500],
-        child: const Center(child: Text('Stat 1')),
-      ), Container(
-          height: 50,
-          color: Colors.amber[600],
-          child: const Center(child: Text('Stat 1')),
-        ), Container(
-        height: 50,
-        color: Colors.amber[700],
-        child: const Center(child: Text('Stat 1')),
-      ),
-      ],
+      itemCount: 3,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+            height: 50,
+            color: Colors.amber[500],
+            child: const Center(child: Text('Name of the User: ')),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+
     );
 
     return lv;
