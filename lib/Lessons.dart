@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'LessonDetail.dart';
 
 class Lessons extends StatelessWidget {
   const Lessons({Key? key}) : super(key: key);
@@ -22,12 +23,20 @@ class Lessons extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       itemCount: entries.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
+        return GestureDetector(onTap: (){
+          print("Container Clikcked");
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LessonDetail()),
+          );
+        },
+        child: new Container(
+          width: 200.0,
           height: 90,
           color: Colors.lightBlue[colorCodes[index]],
           alignment: Alignment.center,
           child: Text('Topic ${entries[index]}'),
-          );
+        ),);
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
