@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../ScreenArguments.dart';
+import '../model/vocModel.dart';
+import '../res/voc_data.dart';
 
 class LessonDetail extends StatelessWidget {
 
@@ -8,6 +12,14 @@ class LessonDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // Parse JSON
+    final parsedJson = json.decode(voc_data.listOfAllVocs) as List;
+    Map<String, dynamic> user = jsonDecode(voc_data.test);
+
+    // Deserialize JSON
+
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Lesson for ${screenargument.title}'),
@@ -22,7 +34,7 @@ class LessonDetail extends StatelessWidget {
 
 
         children: [
-          Text('English Word: '),
+          Text('English Word:  ${user['name']}!'),
           Text('Greek Word: '),
           ElevatedButton(onPressed: () {}, child: const Text('Previos Word')),
           ElevatedButton(onPressed: () {}, child: const Text('Next Word')),
