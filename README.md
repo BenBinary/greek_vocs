@@ -3,7 +3,7 @@
 A project to study greek vocs for certain issues like travelling, food and to study. 
 This is an open source project (OSS) so feel free to contribute. 
 We are looking forward to get in touch with people how are interested in learning greek or already can speak it.
-
+xx
 Abhay and Benedikt
 
 ## Tech Stack
