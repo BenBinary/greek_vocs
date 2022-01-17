@@ -23,12 +23,11 @@ class Lessons extends StatelessWidget {
       itemCount: entries.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          height: 70,
+          height: 90,
           color: Colors.lightBlue[colorCodes[index]],
-          child: Center(child: Text('Topic ${entries[index]}'),
-
-          ),
-        );
+          alignment: Alignment.center,
+          child: Text('Topic ${entries[index]}'),
+          );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
