@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'RandomWords.dart';
-import 'UserStat.dart';
-import 'Lessons.dart';
+import 'Test/Test.dart';
+import 'UserStat/UserStat.dart';
+import 'Lessons/Lessons.dart';
 
 void main() {
   runApp(const MainApp());

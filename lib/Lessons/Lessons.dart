@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'LessonDetail.dart';
+import '../ScreenArguments.dart';
 
 class Lessons extends StatelessWidget {
   const Lessons({Key? key}) : super(key: key);
@@ -24,11 +25,15 @@ class Lessons extends StatelessWidget {
       itemCount: entries.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(onTap: (){
-          print("Container Clikcked");
+          print("Container Clicked");
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LessonDetail()),
-          );
+              MaterialPageRoute(builder: (context) =>
+                  LessonDetail(screenargument: new ScreenArguments(entries[index], entries[index])),
+                  //LessonDetail(new ScreenArguments(title: entries[index], entries[index]))),
+
+            ),
+              );
         },
         child: new Container(
           width: 200.0,
