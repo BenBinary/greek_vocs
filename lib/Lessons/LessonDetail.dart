@@ -4,7 +4,6 @@ import '../ScreenArguments.dart';
 class LessonDetail extends StatelessWidget {
 
   const LessonDetail({Key? key, required this.screenargument}) : super(key: key);
-
   final ScreenArguments screenargument;
 
   @override
@@ -13,19 +12,26 @@ class LessonDetail extends StatelessWidget {
         appBar: AppBar(
           title: Text('Lesson for ${screenargument.title}'),
       ),
-    body: SafeArea(
+    body: Center(
+      widthFactor: 200,
+      heightFactor: 200,
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset('images/pic2.jpg'),
-          Image.asset('images/pic3.jpg'),
+          verticalDirection: VerticalDirection.down,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
 
+
+        children: [
+          Text('English Word: '),
+          Text('Greek Word: '),
+          ElevatedButton(onPressed: () {}, child: const Text('Previos Word')),
+          ElevatedButton(onPressed: () {}, child: const Text('Next Word')),
           ElevatedButton(
               onPressed: ()
               {
                 Navigator.pop(context);
               },
-              child: const Text('go back')),
+              child: const Text('Go Back to Menu')),
         ],
       )
 
