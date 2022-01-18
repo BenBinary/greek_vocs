@@ -21,6 +21,13 @@ class _LessonDetailState extends State<LessonDetail> {
 
 
   late ScreenArguments screenargument;
+  var index = 0;
+
+  // Parse JSON
+  Iterable parsedJson = json.decode(vocData.listOfAllVocs);
+  Map<String, dynamic> user = jsonDecode(vocData.test);
+
+
 
 
   _LessonDetailState(ScreenArguments sa) {
@@ -32,19 +39,13 @@ class _LessonDetailState extends State<LessonDetail> {
   @override
   Widget build(BuildContext context) {
 
-
-    // Parse JSON
-    Iterable parsedJson = json.decode(vocData.listOfAllVocs);
-    Map<String, dynamic> user = jsonDecode(vocData.test);
-
     List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
-
-    var index = 0;
 
     var v = vocList.elementAt(index);
 
     var currentGreekVoc = v.greekVoc;
     var currentEnglishVoc = v.englishVoc;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -65,10 +66,15 @@ class _LessonDetailState extends State<LessonDetail> {
               ElevatedButton(onPressed: () {}, child: const Text('Previos Word')),
               ElevatedButton(onPressed: () {
 
+                print("Next Word clicked");
+
                 setState(() {
                   index = index + 1;
                   currentEnglishVoc = vocList.elementAt(index).englishVoc;
                   currentGreekVoc = vocList.elementAt(index).greekVoc;
+
+                  print(currentEnglishVoc);
+                  print(currentGreekVoc);
 
                 });
 
