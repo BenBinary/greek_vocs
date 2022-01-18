@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../ScreenArguments.dart';
 import '../model/vocModel.dart';
 import '../res/vocData.dart';
+import '../model/jsonStorage.dart';
 
 class LessonDetail extends StatefulWidget {
 
@@ -21,13 +22,13 @@ class _LessonDetailState extends State<LessonDetail> {
 
   late ScreenArguments screenargument;
   var index = 0;
+  // String rawData;
 
 
 
   _LessonDetailState(ScreenArguments sa) {
 
     this.screenargument = sa;
-
 
   }
 
@@ -44,8 +45,6 @@ class _LessonDetailState extends State<LessonDetail> {
 
   @override
   Widget build(BuildContext context) {
-
-
 
     //vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
     List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
