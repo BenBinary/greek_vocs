@@ -65,9 +65,12 @@ class _LessonDetailState extends State<LessonDetail> {
               ElevatedButton(onPressed: () {}, child: const Text('Previos Word')),
               ElevatedButton(onPressed: () {
 
-                index = index + 1;
-                currentEnglishVoc = vocList.elementAt(index).englishVoc;
-                currentGreekVoc = vocList.elementAt(index).greekVoc;
+                setState(() {
+                  index = index + 1;
+                  currentEnglishVoc = vocList.elementAt(index).englishVoc;
+                  currentGreekVoc = vocList.elementAt(index).greekVoc;
+
+                });
 
               }, child: const Text('Next Word')),
               ElevatedButton(
