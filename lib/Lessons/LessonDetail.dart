@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../ScreenArguments.dart';
 import '../model/vocModel.dart';
-import '../res/voc_data.dart';
+import '../res/vocData.dart';
 
 class LessonDetail extends StatelessWidget {
 
@@ -14,11 +14,18 @@ class LessonDetail extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // Parse JSON
-    final parsedJson = json.decode(voc_data.listOfAllVocs) as List;
-    Map<String, dynamic> user = jsonDecode(voc_data.test);
+    Iterable parsedJson = json.decode(vocData.listOfAllVocs);
+    Map<String, dynamic> user = jsonDecode(vocData.test);
 
-    // Deserialize JSON
+    List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
 
+
+    var index = 0;
+
+    var v = vocList.elementAt(index);
+
+    var currentGreekVoc = v.greekVoc;
+    var currentEnglishVoc = v.englishVoc;
 
     return Scaffold(
         appBar: AppBar(
@@ -34,10 +41,16 @@ class LessonDetail extends StatelessWidget {
 
 
         children: [
-          Text('English Word:  ${user['name']}!'),
-          Text('Greek Word: '),
+          Text('English Word:  ${currentEnglishVoc}!'),
+          Text('Greek Word: ${currentGreekVoc}!'),
           ElevatedButton(onPressed: () {}, child: const Text('Previos Word')),
-          ElevatedButton(onPressed: () {}, child: const Text('Next Word')),
+          ElevatedButton(onPressed: () {
+
+            index = index + 1;
+            currentEnglishVoc = vocList.elementAt(index).englishVoc;
+            currentGreekVoc = vocList.elementAt(index).greekVoc;
+
+          }, child: const Text('Next Word')),
           ElevatedButton(
               onPressed: ()
               {
