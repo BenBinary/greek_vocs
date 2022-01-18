@@ -19,14 +19,8 @@ class LessonDetail extends StatefulWidget {
 
 class _LessonDetailState extends State<LessonDetail> {
 
-
   late ScreenArguments screenargument;
   var index = 0;
-
-  // Parse JSON
-  Iterable parsedJson = json.decode(vocData.listOfAllVocs);
-  Map<String, dynamic> user = jsonDecode(vocData.test);
-
 
 
 
@@ -34,17 +28,38 @@ class _LessonDetailState extends State<LessonDetail> {
 
     this.screenargument = sa;
 
+
+  }
+
+  Iterable parsedJson = json.decode(vocData.listOfAllVocs);
+
+
+  _readFile() {
+
+    // Parse JSON
+    Iterable parsedJson = json.decode(vocData.listOfAllVocs);
+
+
   }
 
   @override
   Widget build(BuildContext context) {
 
+
+
+    //vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
     List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
 
     var v = vocList.elementAt(index);
 
-    var currentGreekVoc = v.greekVoc;
+    var currentGreekVocLatin = v.greekVocLatin;
     var currentEnglishVoc = v.englishVoc;
+    var currentGreekVoc = v.greekVoc;
+
+    // Serialize the json string
+    //Map<String, dynamic> changedJsonFile = vocList.elementAt(0).toJson();
+    String s = jsonEncode(vocList);
+    vocData.listOfAllVocs = s;
 
 
     return Scaffold(
@@ -61,24 +76,67 @@ class _LessonDetailState extends State<LessonDetail> {
 
 
             children: [
-              Text('English Word:  ${currentEnglishVoc}!'),
-              Text('Greek Word: ${currentGreekVoc}!'),
-              ElevatedButton(onPressed: () {}, child: const Text('Previos Word')),
+              Text('English Word:  ${vocList.elementAt(index).englishVoc}!'),
+              Text('Greek Word in Latin: ${vocList.elementAt(index).greekVocLatin}!'),
+              Text('Greek Word: ${vocList.elementAt(index).greekVoc}!'),
+              Text('Hard Word: ${vocList.elementAt(index).hardWord}!'),
               ElevatedButton(onPressed: () {
 
-                print("Next Word clicked");
+                setState(() {
+
+                  if (index > 0) {
+
+                    index = index - 1;
+                    currentEnglishVoc = vocList.elementAt(index).englishVoc;
+                    currentGreekVocLatin = vocList.elementAt(index).greekVoc;
+
+                  }
+
+                });
+
+
+              }, child: const Text('Previos Word')),
+              ElevatedButton(onPressed: () {
+
+                print("Length: ${vocList.length}");
+
+                print("Index: ${index}");
 
                 setState(() {
-                  index = index + 1;
-                  currentEnglishVoc = vocList.elementAt(index).englishVoc;
-                  currentGreekVoc = vocList.elementAt(index).greekVoc;
 
-                  print(currentEnglishVoc);
-                  print(currentGreekVoc);
+                  if (index < (vocList.length-1)) {
+
+                    index = index + 1;
+                    currentEnglishVoc = vocList.elementAt(index).englishVoc;
+                    currentGreekVocLatin = vocList.elementAt(index).greekVoc;
+                  }
+
 
                 });
 
               }, child: const Text('Next Word')),
+              ElevatedButton(onPressed: () {
+
+                setState(() {
+                  // Change the value of hardWord
+                  vocList.elementAt(index).hardWord = true;
+
+                  // Save JSON file
+                  String s = jsonEncode(vocList);
+                  vocData.listOfAllVocs = s;
+                  parsedJson = json.decode(vocData.listOfAllVocs);
+                  vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
+
+                  print(vocData.listOfAllVocs);
+
+
+                });
+
+
+
+
+
+              }, child: const Text('I got this word')),
               ElevatedButton(
                   onPressed: ()
                   {

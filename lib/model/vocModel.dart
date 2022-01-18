@@ -5,18 +5,24 @@ part 'vocModel.g.dart';
 @JsonSerializable()
 class vocModel {
 
-  const vocModel({
+   vocModel({
 
+    this.id,
     this.englishVoc,
     this.greekVocLatin,
     this.greekVoc,
+    this.hardWord,
+    this.gotWord
 
 
   });
 
-  final String? englishVoc;
-  final String? greekVocLatin;
-  final String? greekVoc;
+  int? id;
+  String? englishVoc;
+  String? greekVocLatin;
+  String? greekVoc;
+  bool? hardWord;
+  bool? gotWord;
 
 
   /// A necessary factory constructor for creating a new User instance

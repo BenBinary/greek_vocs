@@ -5,20 +5,33 @@ abstract class vocData {
     "email": "john@example.com"
   }''';
 
-  static const listOfAllVocs = '''
+  static var listOfAllVocs = '''
   [
     {
       "englishVoc": "Thank you",
       "greekVocLatin": "Efachisto",
-      "greekVoc": "Efachisto"
+      "greekVoc": "Εφαψηιστο",
+      "hardWord": false,
+      "gotWord": false
  
+    },
+    {
+      "englishVoc": "Good evening",
+      "greekVocLatin": "Kalispera",
+      "greekVoc": "Καλισπερα",
+      "hardWord": false,
+      "gotWord": false
     },
     {
       "englishVoc": "Good morning",
       "greekVocLatin": "Kalimera",
-      "greekVoc": "Kalimera"
+      "greekVoc": "Καλιμερα",
+      "hardWord": false,
+      "gotWord": false
     }
   ]
   ''';
 
 }
+
+
