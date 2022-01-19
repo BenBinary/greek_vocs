@@ -98,20 +98,17 @@ class _LessonDetailState extends State<LessonDetail> {
 
   }
 
-
-
   Future<String> getJson() async {
 
     return await rootBundle.loadString('../res/foodData.json');
   }
 
 
+
+
+
   @override
   Widget build(BuildContext context) {
-
-    // setupDatabase();
-    // insertVocabulary(new Vocabulary(1, "", "", "english_voc"));
-    // print(getVocabulary());
 
     Iterable parsedJson = json.decode(vocData.listOfAllVocs);
 
@@ -143,7 +140,20 @@ class _LessonDetailState extends State<LessonDetail> {
 
 
             children: [
-              Text('English Word:  ${vocList.elementAt(index).englishVoc}!'),
+              Text('English Word:  ${
+                  FutureBuilder<dynamic?>(future: setupDatabase();, builder: (context, snapshot) {
+
+                   // setupDatabase();
+                   // insertVocabulary(new Vocabulary(1, "", "", "english_voc"));
+
+                if(snapshot.connectionState == ConnectionState.done) {
+
+                  return snapshot.data;
+
+                } else {
+                  return snapshot.data;
+                }
+              },)}!'),
               Text('Greek Word in Latin: ${vocList.elementAt(index).greekVocLatin}!'),
               Text('Greek Word: ${vocList.elementAt(index).greekVoc}!'),
               Text('Hard Word: ${vocList.elementAt(index).hardWord}!'),
