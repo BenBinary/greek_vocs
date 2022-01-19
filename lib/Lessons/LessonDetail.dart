@@ -69,6 +69,22 @@ class _LessonDetailState extends State<LessonDetail> {
   @override
   Widget build(BuildContext context) {
 
+    return FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
+
+      // setupDatabase();
+      // insertVocabulary(new Vocabulary(1, "", "", "english_voc"));
+
+      if(snapshot.hasData) {
+
+        var dat = snapshot.data! as List<Vocabulary>;
+
+        return Text(dat.last.greek_voc_latin);
+
+      } else {
+        return Text("null value");;
+      }
+    });
+
     Iterable parsedJson = json.decode(vocData.listOfAllVocs);
 
     List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
@@ -99,22 +115,8 @@ class _LessonDetailState extends State<LessonDetail> {
 
 
             children: [
-              Text('English Word:  ${
-                  FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
+              Text('English Word: '),
 
-                   // setupDatabase();
-                   // insertVocabulary(new Vocabulary(1, "", "", "english_voc"));
-
-                if(snapshot.hasData) {
-
-                  var dat = snapshot.data! as List<Vocabulary>;
-
-                  return Text("found data"); // Text(dat.last.greek_voc_latin);
-
-                } else {
-                  return Text("null value");;
-                }
-              },)}!'),
               Text('Greek Word in Latin: ${vocList.elementAt(index).greekVocLatin}!'),
               Text('Greek Word: ${vocList.elementAt(index).greekVoc}!'),
               Text('Hard Word: ${vocList.elementAt(index).hardWord}!'),
