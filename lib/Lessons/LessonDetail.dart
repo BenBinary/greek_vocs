@@ -107,32 +107,34 @@ class _LessonDetailState extends State<LessonDetail> {
 
             if(snapshot.hasData) {
 
+              int i = 0;
               var vocEntryData = snapshot.data! as List<Vocabulary>;
-
-
-              // col.verticalDirection = Axis.vertical;
+              var eng_voc = vocEntryData.elementAt(i).english_voc;
 
               List<Widget> vocEntries = [];
 
-              for (int i = 0; i < vocEntryData.length; i++) {
+              vocEntries.add(Text("English Word: ${eng_voc}" ));
+              vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(i).greek_voc}" ));
+              vocEntries.add(ElevatedButton(onPressed: () {
+                setState(() {
 
-                vocEntries.add(Text("English Word: ${vocEntryData.elementAt(i).english_voc}" ));
-                vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(i).greek_voc}" ));
-                vocEntries.add(ElevatedButton(onPressed: () { setState(() { }); }, child: Text('Next Voc')));
+                  vocEntries = [];
+                  i = i + 1;
+                  eng_voc = vocEntryData.elementAt(i).english_voc;
+                  print('Next Voc');
 
-              }
-
-
+                }); },
+                  child: Text('Next Voc')));
 
               var col = new Column(verticalDirection: VerticalDirection.down,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center, children: vocEntries);
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: vocEntries);
 
               return col;
 
-
             } else {
-              return Text("null value");;
+              return Text("No data available");;
             }
           }),
 
