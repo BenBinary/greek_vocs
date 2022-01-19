@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:greek_vocs/DatabaseHelper.dart';
 import 'package:greek_vocs/model/vocabulary.dart';
 import '../ScreenArguments.dart';
@@ -102,108 +103,38 @@ class _LessonDetailState extends State<LessonDetail> {
       body: Center(
           widthFactor: 200,
           heightFactor: 200,
-          child: Column(
-            verticalDirection: VerticalDirection.down,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
+
+            if(snapshot.hasData) {
+
+              var vocEntryData = snapshot.data! as List<Vocabulary>;
 
 
-            children: [
-              Text('English Word: '),
-              FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
+              // col.verticalDirection = Axis.vertical;
 
-                if(snapshot.hasData) {
+              List<Widget> vocEntries = [];
 
-                  var dat = snapshot.data! as List<Vocabulary>;
+              for (int i = 0; i < vocEntryData.length; i++) {
 
+                vocEntries.add(Text("English Word: ${vocEntryData.elementAt(i).english_voc}" ));
+                vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(i).greek_voc}" ));
+                vocEntries.add(ElevatedButton(onPressed: () { setState(() { }); }, child: Text('Next Voc')));
 
-
-                  return Text(dat.elementAt(1).english_voc);
-
-                } else {
-                  return Text("null value");;
-                }
-              }),
-              Text('Greek Word in Latin: '),
-              FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
-
-                if(snapshot.hasData) {
-
-                  var dat = snapshot.data! as List<Vocabulary>;
-
-                  return Text(dat.first.greek_voc_latin);
-
-                } else {
-                  return Text("null value");;
-                }
-              }),
-              Text('Greek Word: ${vocList.elementAt(index).greekVoc}!'),
-              Text('Hard Word: ${vocList.elementAt(index).hardWord}!'),
-              ElevatedButton(onPressed: () {
-
-                setState(() {
-
-                  if (index > 0) {
-
-                    index = index - 1;
-                    currentEnglishVoc = vocList.elementAt(index).englishVoc;
-                    currentGreekVocLatin = vocList.elementAt(index).greekVoc;
-
-                  }
-
-                });
-
-
-              }, child: const Text('Previos Word')),
-              ElevatedButton(onPressed: () {
-
-                print("Length: ${vocList.length}");
-
-                print("Index: ${index}");
-
-                setState(() {
-
-                  if (index < (vocList.length-1)) {
-
-                    index = index + 1;
-                    currentEnglishVoc = vocList.elementAt(index).englishVoc;
-                    currentGreekVocLatin = vocList.elementAt(index).greekVoc;
-                  }
-
-
-                });
-
-              }, child: const Text('Next Word')),
-              ElevatedButton(onPressed: () {
-
-                setState(() {
-                  // Change the value of hardWord
-                  vocList.elementAt(index).hardWord = true;
-
-                  // Save JSON file
-                  String s = jsonEncode(vocList);
-                  vocData.listOfAllVocs = s;
-                  parsedJson = json.decode(vocData.listOfAllVocs);
-                  vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
-
-                  print(vocData.listOfAllVocs);
-
-
-                });
+              }
 
 
 
+              var col = new Column(verticalDirection: VerticalDirection.down,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center, children: vocEntries);
+
+              return col;
 
 
-              }, child: const Text('I got this word')),
-              ElevatedButton(
-                  onPressed: ()
-                  {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Go Back to Menu')),
-            ],
-          )
+            } else {
+              return Text("null value");;
+            }
+          }),
 
       ),
     );
