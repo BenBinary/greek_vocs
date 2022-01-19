@@ -9,6 +9,11 @@ Abhay and Benedikt
 This project is based on Flutter. We use on-site storage for tasks and learning progress.
 In future there can be a server side application be implemented.
 
+For data storage there is JSON and a SQLite Database used.
+
+## Contribution
+
+
 ## Statistics 
 To track the learning progress a dedicated feedback shall be provided in terms how the performance of the user is.
 

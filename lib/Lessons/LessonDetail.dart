@@ -30,7 +30,8 @@ class _LessonDetailState extends State<LessonDetail> {
 
   late DatabaseHelper databaseHelper;
   late ScreenArguments screenargument;
-  var index = 0;
+  late int amountVocs;
+  var index = 1;
 
   // Constructor
   _LessonDetailState(ScreenArguments sa) {
@@ -65,8 +66,8 @@ class _LessonDetailState extends State<LessonDetail> {
     await databaseHelper.insertVocabulary(vocabulary);
     vocabulary = new Vocabulary(3, "Kalimera", "Καλιμερα", "Good morning");
     await databaseHelper.insertVocabulary(vocabulary);
-
-
+    vocabulary = new Vocabulary(1, "Kalispera", "Καλισπερα", "Good evening");
+    await databaseHelper.insertVocabulary(vocabulary);
 
   }
 
@@ -80,20 +81,17 @@ class _LessonDetailState extends State<LessonDetail> {
   @override
   Widget build(BuildContext context) {
 
-    Iterable parsedJson = json.decode(vocData.listOfAllVocs);
-
-    List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
-
-    var v = vocList.elementAt(index);
-
-    var currentGreekVocLatin = v.greekVocLatin;
-    var currentEnglishVoc = v.englishVoc;
-    var currentGreekVoc = v.greekVoc;
+    // Iterable parsedJson = json.decode(vocData.listOfAllVocs);
+    // List<vocModel> vocList = List<vocModel>.from(parsedJson.map((e) => vocModel.fromJson(e)));
+    // var v = vocList.elementAt(index);
+    // var currentGreekVocLatin = v.greekVocLatin;
+    // var currentEnglishVoc = v.englishVoc;
+    // var currentGreekVoc = v.greekVoc;
 
     // Serialize the json string
     //Map<String, dynamic> changedJsonFile = vocList.elementAt(0).toJson();
-    String s = jsonEncode(vocList);
-    vocData.listOfAllVocs = s;
+    // String s = jsonEncode(vocList);
+    // vocData.listOfAllVocs = s;
 
 
     return Scaffold(
@@ -103,40 +101,72 @@ class _LessonDetailState extends State<LessonDetail> {
       body: Center(
           widthFactor: 200,
           heightFactor: 200,
-          child: FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
+          child: Column(
 
-            if(snapshot.hasData) {
+              verticalDirection: VerticalDirection.down,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
 
-              int i = 0;
-              var vocEntryData = snapshot.data! as List<Vocabulary>;
-              var eng_voc = vocEntryData.elementAt(i).english_voc;
+              children: [ FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
 
-              List<Widget> vocEntries = [];
+                if(snapshot.hasData) {
 
-              vocEntries.add(Text("English Word: ${eng_voc}" ));
-              vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(i).greek_voc}" ));
-              vocEntries.add(ElevatedButton(onPressed: () {
-                setState(() {
+                  var vocEntryData = snapshot.data! as List<Vocabulary>;
 
-                  vocEntries = [];
-                  i = i + 1;
-                  eng_voc = vocEntryData.elementAt(i).english_voc;
-                  print('Next Voc');
+                  amountVocs = vocEntryData.length;
 
-                }); },
-                  child: Text('Next Voc')));
 
-              var col = new Column(verticalDirection: VerticalDirection.down,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: vocEntries);
 
-              return col;
+                  if ((index < (vocEntryData.length)) & (index >= 0)) {
 
-            } else {
-              return Text("No data available");;
-            }
-          }),
+                    List<Widget> vocEntries = [];
+
+                    vocEntries.add(Text("English Word: ${vocEntryData.elementAt(index).english_voc}" ));
+                    vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(index).greek_voc}" ));
+                    vocEntries.add(Text("Index: ${vocEntryData.elementAt(index).id}" ));
+
+                    var col = new Column(verticalDirection: VerticalDirection.down,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: vocEntries);
+
+                    return col;
+
+                  } else {
+
+                    return Text("Out of bound");
+
+                  }
+
+                } else {
+                  return Text("No data available");;
+                }
+              }),
+              ElevatedButton(onPressed: () {
+                  setState(() {
+
+                    if (index < (amountVocs - 1)) {
+                      index = index + 1;
+                      print('Next Voc');
+                    }
+
+                    }); },
+              child: Text('Next Voc')),
+                ElevatedButton(onPressed: () {
+                  setState(() {
+
+                    if (index > 0 ) {
+                      index = index - 1;
+                      print('Prev Voc');
+                    }
+
+
+                  }); },
+                    child: Text('Previos Voc'))
+              ]
+
+          ),
+
 
       ),
     );
