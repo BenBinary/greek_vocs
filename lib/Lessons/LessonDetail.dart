@@ -47,9 +47,7 @@ class _LessonDetailState extends State<LessonDetail> {
 
     this.databaseHelper.setupDatabase().whenComplete(() async {
 
-      this.databaseHelper.insertVocabulary(
-
-          new Vocabulary(1,"Kalimera","Kalimera","Good Morning")).
+      insertData().
       whenComplete(() async {
         setState(() {
 
@@ -57,6 +55,18 @@ class _LessonDetailState extends State<LessonDetail> {
       });
 
     });
+  }
+
+
+  Future<void> insertData() async {
+
+    var vocabulary = new Vocabulary(2, "Efachisto", "Εφαψηιστο", "Thank you");
+    await databaseHelper.insertVocabulary(vocabulary);
+    vocabulary = new Vocabulary(3, "Kalimera", "Καλιμερα", "Good morning");
+    await databaseHelper.insertVocabulary(vocabulary);
+
+
+
   }
 
 
@@ -68,23 +78,6 @@ class _LessonDetailState extends State<LessonDetail> {
 
   @override
   Widget build(BuildContext context) {
-
-    /*
-    return FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
-
-      // setupDatabase();
-      // insertVocabulary(new Vocabulary(1, "", "", "english_voc"));
-
-      if(snapshot.hasData) {
-
-        var dat = snapshot.data! as List<Vocabulary>;
-
-        return Text(dat.last.greek_voc_latin);
-
-      } else {
-        return Text("null value");;
-      }
-    }); */
 
     Iterable parsedJson = json.decode(vocData.listOfAllVocs);
 
@@ -123,13 +116,27 @@ class _LessonDetailState extends State<LessonDetail> {
 
                   var dat = snapshot.data! as List<Vocabulary>;
 
-                  return Text(dat.last.greek_voc_latin);
+
+
+                  return Text(dat.elementAt(1).english_voc);
 
                 } else {
                   return Text("null value");;
                 }
               }),
-              Text('Greek Word in Latin: ${vocList.elementAt(index).greekVocLatin}!'),
+              Text('Greek Word in Latin: '),
+              FutureBuilder(future: databaseHelper.getVocabulary(), builder: (context, snapshot) {
+
+                if(snapshot.hasData) {
+
+                  var dat = snapshot.data! as List<Vocabulary>;
+
+                  return Text(dat.first.greek_voc_latin);
+
+                } else {
+                  return Text("null value");;
+                }
+              }),
               Text('Greek Word: ${vocList.elementAt(index).greekVoc}!'),
               Text('Hard Word: ${vocList.elementAt(index).hardWord}!'),
               ElevatedButton(onPressed: () {
