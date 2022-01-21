@@ -36,7 +36,8 @@ class DatabaseHelper {
               'id INTEGER PRIMARY KEY, '
               'greek_voc TEXT, '
               'greek_voc_latin TEXT, '
-              'english_voc TEXT);'
+              'english_voc TEXT, '
+              'topic TEXT);'
         );
       },
       // Set the version. This executes the onCreate function and provides a
@@ -73,7 +74,8 @@ class DatabaseHelper {
           maps[i]['id'],
           maps[i]['greek_voc'],
           maps[i]['greek_voc_latin'],
-          maps[i]['english_voc']);
+          maps[i]['english_voc'],
+          maps[i]['topic']);
 
     });
   }

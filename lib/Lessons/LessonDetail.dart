@@ -62,11 +62,11 @@ class _LessonDetailState extends State<LessonDetail> {
 
   Future<void> insertData() async {
 
-    var vocabulary = new Vocabulary(2, "Εφαψηιστο", "Efachisto", "Thank you");
+    var vocabulary = new Vocabulary(2, "Εφαψηιστο", "Efachisto", "Thank you","travelling");
     await databaseHelper.insertVocabulary(vocabulary);
-    vocabulary = new Vocabulary(3, "Καλιμερα","Kalimera", "Good morning");
+    vocabulary = new Vocabulary(3, "Καλιμερα","Kalimera", "Good morning","travelling");
     await databaseHelper.insertVocabulary(vocabulary);
-    vocabulary = new Vocabulary(1, "Καλισπερα","Kalispera", "Good evening");
+    vocabulary = new Vocabulary(1, "Καλισπερα","Kalispera", "Good evening","travelling");
     await databaseHelper.insertVocabulary(vocabulary);
 
   }
@@ -122,9 +122,9 @@ class _LessonDetailState extends State<LessonDetail> {
                     List<Widget> vocEntries = [];
 
                     vocEntries.add(Text("English Word: ${vocEntryData.elementAt(index).english_voc}" ));
-                    vocEntries.add(Text("Greek Word latin: ${vocEntryData.elementAt(index).greek_voc}" ));
-                    vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(index).greek_voc_latin}" ));
-
+                    vocEntries.add(Text("Greek Word latin: ${vocEntryData.elementAt(index).greek_voc_latin}" ));
+                    vocEntries.add(Text("Greek Word: ${vocEntryData.elementAt(index).greek_voc}" ));
+                    vocEntries.add(Text("topic: ${vocEntryData.elementAt(index).topic}" ));
                     vocEntries.add(Text("Index: ${vocEntryData.elementAt(index).id}" ));
 
                     var col = new Column(verticalDirection: VerticalDirection.down,
